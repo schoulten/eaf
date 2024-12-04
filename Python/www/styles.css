@@ -1,0 +1,151 @@
+.bslib-page-navbar > .navbar {
+    --bslib-navbar-default-bg: #e7e7e7;
+}
+
+.navbar {
+    border: 1px solid #e7e7e7;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    background: #e7e7e7 !important;
+}
+
+.card {
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.shiny-input-container .radio-inline input:checked {
+    background-color: #336633;
+    border-color: #336633;
+}
+
+.shiny-input-container .radio-inline input:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .25rem #33663340;
+}
+
+.shiny-input-radiogroup label ~ .shiny-options-group {
+    margin-top: -1px;
+}
+
+.shiny-input-container .radio input:checked {
+    background-color: #336633;
+    border-color: #336633;
+}
+
+.shiny-input-container .radio input:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .25rem #33663340;
+}
+
+.shiny-input-container .checkbox-inline input:checked{
+    background-color: #336633;
+    border-color: #336633;
+}
+
+.shiny-input-container .checkbox-inline input:focus {
+    border-color: #336633;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem #33663340;
+}
+
+.selectize-control.multi .selectize-input > div {
+    background: #33663340;
+}
+
+.selectize-input.focus {
+    border-color: #336633;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem #33663340;
+}
+
+.selectize-control.plugin-clear_button .clear {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.selectize-input {
+    border: 1px solid #e0e0e0;
+}
+
+.bslib-sidebar-layout > .sidebar > .sidebar-content {
+    gap: 1.25rem;
+    padding-top: 2.8rem;
+}
+
+.selectize-dropdown, .selectize-input, .selectize-input input {
+    font-size: 14px;
+}
+
+body {
+    font-size: 14px;
+}
+
+.bslib-page-navbar>.navbar+div, .bslib-page-dashboard>.navbar+div {
+    border-top: 0px;
+}
+
+.form-check, .shiny-input-container .checkbox, .shiny-input-container .radio {
+    min-height: 1.375rem;
+    margin-bottom: 0rem;
+}
+
+.shiny-input-container .checkbox label {
+    float: right;
+  }
+
+.shiny-input-container .checkbox input {
+    margin-left: .35em;
+    float: right;
+}
+
+.shiny-input-container .checkbox input:checked{
+    background-color: #336633;
+    border-color: #336633;
+}
+
+.shiny-input-container .checkbox input:focus {
+    border-color: #336633;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem #33663340;
+}
+
+.btn-sm, .btn-group-sm > .btn {
+    --bs-btn-font-size: 13px;
+}
+
+.btn-light {
+    --bs-btn-bg: #e7e7e7;
+}
+
+.bslib-mb-spacing {
+    margin-bottom: 0px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-brand > a {
+    color: black;
+    text-decoration: none;
+}
+
+details > summary {
+ 
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none
+  }
+  
+  summary::after {
+    content: ' ►';
+  }
+  details[open] summary:after {
+    content: " ▼";
+  }
