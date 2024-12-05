@@ -2,7 +2,7 @@
 
 Este repositório contém arquivos e dados de um aplicativo Shiny de simulação preditiva para o **Total de Emplacamentos de Caminhões** no Brasil, conforme a ANFAVEA.
 
-![](imgs/app_print.png){fig-align="center"}
+![](imgs/app_print.png)
 
 ## Detalhes técnicos
 
@@ -19,7 +19,9 @@ Detalhes de acurácia dos modelos:
 
 ![](imgs/metricas.png)
 
-![](imgs/rmse.png) ![](imgs/me.png)
+![](imgs/rmse.png)
+
+![](imgs/me.png)
 
 Todo o processo primou pela automação de rotinas.
 
@@ -67,4 +69,5 @@ Encerre a aplicação com `CTRL+C` no Terminal. Ao final, delete o Codespace cri
 ## Limitações
 
 -   Coleta de dados online: o código utiliza APIs/links para dados em fontes online, não havendo garantias de disponibilidade ininterrupta.
--
+-   Modelo: os algoritmos foram limitados à restrição de dados do projeto, podendo ser aprimorado com mais dados e com aprofundamento na engenharia de variáveis.
+-   Dashboard: a UI é simples e está longe do ideal, havendo necessidade de testes e personalização.
