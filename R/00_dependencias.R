@@ -1,4 +1,4 @@
-install.packages(
+install.packages(c(
     "httr2",
     "readxl",
     "rbcb",
@@ -25,4 +25,4 @@ install.packages(
     "purrr",
     "ggplot2",
     "readr"
-)
+))
