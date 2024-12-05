@@ -7,17 +7,17 @@
 library(arrow)
 library(tidyr)
 library(dplyr)
+library(lubridate)
 library(tsibble)
 library(forecast)
+library(timetk)
 library(workflows)
 library(recipes)
+library(rsample)
 library(modeltime)
 library(parsnip)
-library(modeltime.ensemble)
-library(tune)
-library(modeltime.resample)
-library(timetk)
-library(rsample)
+library(purrr)
+library(ggplot2)
 
 
 # Dados -------------------------------------------------------------------
@@ -59,59 +59,6 @@ dados <- dados_brutos |>
       .default = 0
       )
     )
-
-
-# Modelos -----------------------------------------------------------------
-
-
-# Modelo 1: Random Forest
-modelo_rf <- workflows::workflow() |> 
-  workflows::add_recipe(
-    recipes::recipe(emplacamentos ~ ., data = dados)
-  ) |> 
-  workflows::add_model(
-    parsnip::rand_forest(mode = "regression", min_n = 2) |> 
-      parsnip::set_engine("ranger")
-  ) |> 
-  fit(data = dados)
-
-# Modelo 2: XGBoost
-modelo_xgb <- workflows::workflow() |> 
-  workflows::add_recipe(
-    recipes::recipe(emplacamentos ~ ., data = dados) |> 
-      recipes::step_mutate(ano_mes = as.numeric(ano_mes))
-  ) |> 
-  workflows::add_model(
-    parsnip::boost_tree(mode = "regression", min_n = 2) |> 
-      parsnip::set_engine("xgboost")
-  ) |> 
-  fit(data = dados)
-
-# Tabela de modelos
-modelos_tbl <- modeltime::modeltime_table(modelo_rf, modelo_xgb)
-
-# Validação cruzada
-plano_vc <- modeltime.resample::time_series_cv(
-  data = dados,
-  date_var = ano_mes,
-  initial = 80,
-  assess = 12,
-  cumulative = TRUE
-)
-validacao_cruzada <- modeltime.resample::modeltime_fit_resamples(
-  modelos_tbl,
-  resamples = plano_vc,
-  control = tune::control_resamples(verbose = TRUE)
-)
-
-# Modelo 3: Ensemble
-amostras <- timetk::time_series_split(dados, ano_mes, assess = 12, cumulative = TRUE)
-modelo_ensemble <- validacao_cruzada |> 
-  modeltime.ensemble::ensemble_model_spec(
-    model_spec = parsnip::linear_reg() |> parsnip::set_engine("lm"),
-    control = tune::control_grid(verbose = TRUE)
-  ) |> 
-  modeltime::modeltime_table()
 
 
 # Cenários ----------------------------------------------------------------
@@ -211,20 +158,3 @@ dados |>
 
 # Salva cenários
 arrow::write_parquet(cenarios, "dados/cenarios.parquet")
-
-
-
-# Previsão ----------------------------------------------------------------
-
-
-# Produz previsão
-previsao <- modelo_ensemble |> 
-  modeltime::modeltime_calibrate(new_data = rsample::testing(amostras)) |>
-  modeltime::modeltime_refit(dados, resamples = plano_vc) |> 
-  modeltime::modeltime_forecast(new_data = cenarios, conf_interval = 0.95, actual_data=dados)
-
-# Visualiza previsão
-plot_modeltime_forecast(previsao)
-
-# Salva previsões
-arrow::write_parquet(previsao, "dados/previsao.parquet")
